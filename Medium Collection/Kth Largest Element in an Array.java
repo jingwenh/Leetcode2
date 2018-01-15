@@ -1,4 +1,4 @@
-//维护一个长度为k的最小堆，当长度超过k时，把堆顶（最小的数）移除，这样堆顶始终是第k大的数
+//维护一个长度为k的最小堆，当长度超过k时，把堆顶（最小的数）移除，这样堆顶始终是第k大的数(堆里面是最大的k个数，堆顶就是第k大的数)
 class Solution {
     public int findKthLargest(int[] nums, int k) {
         Queue<Integer> pq = new PriorityQueue<>();

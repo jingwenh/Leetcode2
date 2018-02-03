@@ -1,3 +1,36 @@
+//Better solution
+class Solution {
+    public boolean validPalindrome(String s) {
+        int left = 0;
+        int right = s.length() - 1;
+        while (left <= right) {
+            if (s.charAt(left) != s.charAt(right)) {
+                return helper(s, left + 1, right) || helper(s, left, right - 1); //去掉左端点或者去掉右端点判断是不是回文
+            } else {
+                left++;
+                right--;
+            }
+        }
+        return true;
+    }
+    
+    //判断从left到right是不是回文
+    private boolean helper(String s, int left, int right) {
+        while (left <= right) {
+            if (s.charAt(left) != s.charAt(right)) {
+                return false;
+            } else {
+                left++;
+                right--;
+            }
+        }
+        return true;
+    }
+}
+
+
+/*----------------------------------------------------------------------------------------------------*/
+
 //相向双指针
 //第一次到两端不相等时出来，取出中间那一段字符串
 //第一次去掉左端点，判断是不是回文

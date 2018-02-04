@@ -34,15 +34,15 @@ class Solution {
                 for (int i = colEnd; i >= colBegin; i--) {
                     res.add(matrix[rowEnd][i]);
                 }
+                rowEnd--; //一行结束，向上移以上
             }
-            rowEnd--; //一行结束，向上移以上
             //上，列不变行-
             if (colBegin <= colEnd) {
                 for (int i = rowEnd; i >= rowBegin; i--) {
                     res.add(matrix[i][colBegin]);
-                }                
+                }          
+                colBegin++; //一列结束，向右移一列
             } 
-            colBegin++; //一列结束，向右移一列
         }
         
         return res;

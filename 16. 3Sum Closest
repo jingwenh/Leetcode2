@@ -1,0 +1,31 @@
+//类似于3Sum
+//求a + b + c = target 即求 a + b = target - c
+//在数组中遍历c, 然后求a和b的2Sum
+//保留|a + b + c - target|更小的值
+class Solution {
+    public int threeSumClosest(int[] nums, int target) {
+        int res = nums[0] + nums[1] + nums[nums.length - 1]; //从数组任意取三个数初始化
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length; i++) {
+            int c = nums[i];
+            //双指针求2Sum
+            int left = i + 1; //从i + 1开始，避免加入重复元素
+            int right = nums.length - 1;
+            int aim = target - c;
+            while (left < right) {
+                int sum = nums[left] + nums[right];
+                if (sum > aim) {
+                    right--;
+                } else if (sum < aim) {
+                    left++;
+                } else {
+                    return target;
+                }
+                if (Math.abs(sum + c - target) < Math.abs(res - target)) {
+                    res = sum + c;
+                }
+            }
+        }
+        return res;
+    }
+}

@@ -1,0 +1,43 @@
+//BFS
+//按顺序把字符串的字符放进Q
+//Q里是生成字符串的前缀
+//每次循环把前缀取出来，把下一个字符贴上去，再把新生成的前缀再放回去，直到前缀达到了需要的长度
+//比如a1b1
+//先放""
+//然后取出""，贴上a或A，把"a","A"放回去
+//然后取出"a"，放回"a1"
+//取出"A"，放回"A1"
+//取出"a1"，放回"a1b"和"a1B"
+//...
+class Solution {
+    public List<String> letterCasePermutation(String S) {
+        List<String> res = new ArrayList<String>();
+        
+        Queue<String> q = new LinkedList<>();
+        q.offer("");
+        
+        while (!q.isEmpty()) {
+            // System.out.println(q);
+            String prefix = q.poll();
+            if (prefix.length() == S.length()) {
+                res.add(prefix);
+                continue;
+            }
+            int nextIndex = prefix.length();
+            char c = S.charAt(nextIndex);
+            if (c >= 'A') {
+                if (Character.isLowerCase(c)) {
+                    q.offer(prefix + (c + "").toUpperCase());
+                } else {
+                    q.offer(prefix + (c + "").toLowerCase());
+                }
+                q.offer(prefix + (c + ""));
+            } else {
+                q.offer(prefix + (c + ""));
+            }
+            // System.out.println(q);
+        }
+        
+        return res;
+    }
+}

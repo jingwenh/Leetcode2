@@ -18,8 +18,7 @@
 * 状态转移方程：  
     左边：f[i][0] = f[i - 1][0] + triangle[i][0]  
     右边：f[i][i] = f[i - 1][i - 1] + triangle[i][i]  
-    中间：f[i][j] = min(f[i - 1][j - 1], f[i - 1][j]) + triangle[i][j]  
-    
+    中间：f[i][j] = min(f[i - 1][j - 1], f[i - 1][j]) + triangle[i][j]   
 * 初始化：f[0][0] = triangle[0][0]
 * 终点：min(f[-1])
    

@@ -1,4 +1,5 @@
 # Solution 1: Pure BFS, Time limit exceeded
+# 找出所有path，然后选出path sum最小的
 from collections import deque
 class Solution:
     def minimumTotal(self, triangle):

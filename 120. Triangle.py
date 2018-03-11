@@ -54,13 +54,26 @@ class Solution:
         path_sum = path_sum + self.triangle[root[0]][root[1]]
         if root[0] == len(self.triangle) - 1:
             self.min_path = min(self.min_path, path_sum)
-        if self.inBound((root[0] + 1, root[1])):
-            self.traverse((root[0] + 1, root[1]), path_sum)
-        if self.inBound((root[0] + 1, root[1] + 1)):
-            self.traverse((root[0] + 1, root[1] + 1), path_sum)
+            return
+        self.traverse((root[0] + 1, root[1]), path_sum)
+        self.traverse((root[0] + 1, root[1] + 1), path_sum)
+
+# Solution 3: divide and conquer, TLE
+class Solution:
+    def minimumTotal(self, triangle):
+        """
+        :type triangle: List[List[int]]
+        :rtype: int
+        """
+        self.triangle = triangle
+        min_path = self.divideConquer((0, 0))
+        return min_path
         
-    def inBound(self, coo):
-        width = coo[0]
-        if coo[0] > 0 and coo[0] < len(self.triangle) and coo[1] >= 0 and coo[1] <= width:
-            return True
-        return False
+    # 最短路径 = min(左边最短，右边最短)
+    def divideConquer(self, root):
+        if root[0] == len(self.triangle) - 1:
+            return self.triangle[root[0]][root[1]]
+        
+        left_min_sum = self.divideConquer((root[0] + 1, root[1]))
+        right_min_sum = self.divideConquer((root[0] + 1, root[1] + 1))
+        return self.triangle[root[0]][root[1]] + min(left_min_sum, right_min_sum)

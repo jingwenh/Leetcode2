@@ -82,6 +82,8 @@ class Solution:
         return self.triangle[root[0]][root[1]] + min(left_min_sum, right_min_sum)
 
 # Solution 4: divide and conquer + 缓存节点的path sum, AC
+# DP vs. Divide and Conquer: 子问题有没有重叠
+# 此时时间复杂度是O(n^2)
 class Solution:
     def minimumTotal(self, triangle):
         """

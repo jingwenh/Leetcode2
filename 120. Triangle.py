@@ -39,6 +39,7 @@ class Solution:
         return False
 
 # Solution 2: DFS, traverse as a binary tree, TLE
+# Unable to optimize
 class Solution:
     def minimumTotal(self, triangle):
         """
@@ -59,6 +60,8 @@ class Solution:
         self.traverse((root[0] + 1, root[1] + 1), path_sum)
 
 # Solution 3: divide and conquer, TLE
+# 优化：缓存每个节点的min path sum
+# TLE的原因：重复走节点，并且对于相同的节点，从底端到它的min path sum是不变的
 class Solution:
     def minimumTotal(self, triangle):
         """

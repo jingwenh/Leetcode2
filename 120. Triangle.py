@@ -38,7 +38,7 @@ class Solution:
             return True
         return False
 
-# Solution 2: traverse as a binary tree, TLE
+# Solution 2: DFS, traverse as a binary tree, TLE
 class Solution:
     def minimumTotal(self, triangle):
         """

@@ -112,3 +112,27 @@ class Solution:
         self.cache_min_path_sum[root] = min_path_sum_to_cur
         
         return self.triangle[root[0]][root[1]] + min(left_min_sum, right_min_sum)
+    
+# Solution 5: DP with iteration
+# Recursion vs. Iteration:
+class Solution:
+    def minimumTotal(self, triangle):
+        """
+        :type triangle: List[List[int]]
+        :rtype: int
+        """
+        
+        # 定义状态： f[i][j]表示从底端到节点(i, j)的最短路径
+        f = [[float('inf') for i in range(len(triangle[-1]))] for j in range(len(triangle))]
+        
+        # 初始化最底端
+        for i in range(len(f[-1])):
+            f[-1][i] = triangle[-1][i]
+        
+        # 循环自底向上求解(从倒数第二行开始)，每个节点的min_path = min(左min_path, 右min_path) + 这个节点的值
+        for i in range(len(triangle) - 2, -1, -1): # range(起始值，步长，exclusive结束值)
+            for j in range(len(triangle[i])): # 列按正常顺序遍历
+                f[i][j] = min(f[i + 1][j], f[i + 1][j + 1]) + triangle[i][j]
+        
+        return f[0][0]
+        

@@ -80,3 +80,33 @@ class Solution:
         left_min_sum = self.divideConquer((root[0] + 1, root[1]))
         right_min_sum = self.divideConquer((root[0] + 1, root[1] + 1))
         return self.triangle[root[0]][root[1]] + min(left_min_sum, right_min_sum)
+
+# Solution 4: divide and conquer + 缓存节点的path sum, AC
+class Solution:
+    def minimumTotal(self, triangle):
+        """
+        :type triangle: List[List[int]]
+        :rtype: int
+        """
+        self.cache_min_path_sum = {}
+        self.triangle = triangle
+        min_path = self.divideConquer((0, 0))
+        return min_path
+        
+    # 最短路径 = min(左边最短，右边最短)
+    def divideConquer(self, root):
+        if root[0] == len(self.triangle) - 1:
+            return self.triangle[root[0]][root[1]]
+        
+        # 缓存过了这个节点的path sum ，直接返回
+        if root in self.cache_min_path_sum.keys():
+            return self.cache_min_path_sum[root]
+        
+        left_min_sum = self.divideConquer((root[0] + 1, root[1]))
+        right_min_sum = self.divideConquer((root[0] + 1, root[1] + 1))
+        min_path_sum_to_cur = self.triangle[root[0]][root[1]] + min(left_min_sum, right_min_sum)
+        
+        # 加缓存
+        self.cache_min_path_sum[root] = min_path_sum_to_cur
+        
+        return self.triangle[root[0]][root[1]] + min(left_min_sum, right_min_sum)

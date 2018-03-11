@@ -135,4 +135,31 @@ class Solution:
                 f[i][j] = min(f[i + 1][j], f[i + 1][j + 1]) + triangle[i][j]
         
         return f[0][0]
+ 
+# Solution 6: DP iteration with Top-down approach
+class Solution:
+    def minimumTotal(self, triangle):
+        """
+        :type triangle: List[List[int]]
+        :rtype: int
+        """
+        # 自顶向下求解
+        # 定义状态： f[i][j]表示从(0, 0)到(i, j)的最短路径
+        f = [[float('inf') for i in range(len(triangle[-1]))] for j in range(len(triangle))]
         
+        # 初始化f[0][0]
+        f[0][0] = triangle[0][0]
+        
+        # 循环自顶向下求解f[i][j] = min(f[i - 1][j - 1], f[i - 1][j]) + triangle[i][j]
+        # 根据递推公式，最左边和最右边会越界，最左边、最右边、中间部分分开处理
+        for i in range(1, len(triangle)): # 从第二层开始
+            f[i][0] = f[i - 1][0] + triangle[i][0]
+            f[i][i] = f[i - 1][i - 1] + triangle[i][i] #注意f的形状和triangle不一样, 不要用-1求f最末尾的值
+        
+        # 从第二层开始
+        for i in range(1, len(triangle)):
+            for j in range(1, i):
+                f[i][j] = min(f[i - 1][j - 1], f[i - 1][j]) + triangle[i][j]
+        
+        # 取最后一层的最小值
+        return min(f[-1])

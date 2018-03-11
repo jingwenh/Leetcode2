@@ -1,5 +1,6 @@
 # Solution 1: Pure BFS, Time limit exceeded
 # 找出所有path，然后选出path sum最小的
+# 时间复杂度分析：每走到一个节点都要两个分叉，如果高度为n，时间复杂度为O(2^n)
 from collections import deque
 class Solution:
     def minimumTotal(self, triangle):

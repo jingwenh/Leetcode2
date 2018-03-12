@@ -15,10 +15,11 @@
 * 终点：最大的状态
 ## Example: Triangle (DP Top-down approach)
 * 状态： f[i][j]表示从(0, 0)到(i, j)的最短距离
-* 状态转移方程：  
-    左边：f[i][0] = f[i - 1][0] + triangle[i][0]  
+* 状态转移方程：   
+    左边：f[i][0] = f[i - 1][0] + triangle[i][0]
     右边：f[i][i] = f[i - 1][i - 1] + triangle[i][i]  
     中间：f[i][j] = min(f[i - 1][j - 1], f[i - 1][j]) + triangle[i][j]   
+    注意：计算dp[i][j]时每个节点只能计算一次，一定要记得跳过已经得到状态了的节点（比如说初始化过了，或者先算了左边右边，算中间的时候不能再算第二次）
 * 初始化：f[0][0] = triangle[0][0]
 * 终点：min(f[-1])
    

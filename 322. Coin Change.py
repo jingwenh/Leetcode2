@@ -32,7 +32,7 @@ class Solution:
             for num in prv:
                 if num <= amount and num >= 0:
                     options.append(dp[num])
-                else:
+                else: # 这里要处理越界，比如amount = 3, coin = 5，此时会越界
                     options.append(float('inf'))
             
             dp[i] = min(options) + 1

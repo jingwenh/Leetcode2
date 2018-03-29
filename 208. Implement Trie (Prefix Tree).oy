@@ -1,0 +1,80 @@
+class TrieNode:
+    def __init__(self):
+        # Key = letter, value = TrieNode
+        self.children = dict()
+        # 单词截止位置；没有end匹配到了只算前缀，不算单词
+        self.isEnd = False
+    
+    def put(self, c, node):
+        self.children[c] = node
+    
+    def get(self, c):
+        if c in self.children:
+            return self.children[c]
+        else:
+            return None
+    
+    def setEnd(self):
+        self.isEnd = True
+
+        
+class Trie:
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.root = TrieNode()
+    
+    # 从root开始往下插入，先判断有没有这个字母，没有这个字母就新创建一个，有就跳到下一个字母，往下一个节点走
+    def insert(self, word):
+        """
+        Inserts a word into the trie.
+        :type word: str
+        :rtype: void
+        """
+        cursor = self.root # 从root开始加
+        for c in word:
+            if c not in cursor.children:
+                cursor.put(c, TrieNode())
+            cursor = cursor.children[c]
+        cursor.setEnd()
+
+    # 找前缀，从root开始往下找，搜完返回cursor所在节点位置
+    def searchPrefix(self, prefix):
+        cursor = self.root
+        for c in prefix:
+            if c in cursor.children:
+                cursor = cursor.children[c]
+            else:
+                return None
+        return cursor    
+    
+    # 直接调用searchPrefix，然后看cursor最后的停留位置的节点是不是end
+    def search(self, word):
+        """
+        Returns if the word is in the trie.
+        :type word: str
+        :rtype: bool
+        """
+        node = self.searchPrefix(word)
+        if node == None:
+            return False
+        else:
+            return node.isEnd
+    
+    # 直接调用searchPrefix
+    def startsWith(self, prefix):
+        """
+        Returns if there is any word in the trie that starts with the given prefix.
+        :type prefix: str
+        :rtype: bool
+        """
+        node = self.searchPrefix(prefix)
+        return node != None
+    
+
+# Your Trie object will be instantiated and called as such:
+# obj = Trie()
+# obj.insert(word)
+# param_2 = obj.search(word)
+# param_3 = obj.startsWith(prefix)

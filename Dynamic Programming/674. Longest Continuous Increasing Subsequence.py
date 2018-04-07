@@ -26,3 +26,5 @@ class Solution:
         
         # 出口：返回dp里最大的
         return max(dp)
+
+# Follow up: 既可以从左也可以从右开始 - 反着来再dp一次

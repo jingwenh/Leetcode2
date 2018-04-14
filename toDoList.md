@@ -7,5 +7,5 @@
 ## Sweep Line
 * The skyline problem
 
-# Sliding window
+## Sliding window
 * Sliding Window Maximum
